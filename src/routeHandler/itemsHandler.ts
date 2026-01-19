@@ -1,10 +1,10 @@
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
-import itemSchema from "../schemas/itemSchema.js";
+import itemSchema, { type ItemDocument } from "../schemas/itemSchema.js";
 const router = express.Router();
 
-const Item = mongoose.model("Item", itemSchema);
+const Item = mongoose.model<ItemDocument>("Item", itemSchema);
 
 // Post a item
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {

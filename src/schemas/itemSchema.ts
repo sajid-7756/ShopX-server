@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export interface ItemDocument extends Document {
   name: string;
@@ -35,4 +35,4 @@ const itemSchema = new schema<ItemDocument>(
   },
 );
 
-export default itemSchema;
+export const Item = mongoose.model<ItemDocument>("Item", itemSchema);

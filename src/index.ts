@@ -5,6 +5,7 @@ import cors from "cors";
 import errorHandler from "./errorHandler.js";
 import connectDB from "./db.js";
 import itemsHandler from "./routeHandler/itemsHandler.js";
+import authHandler from "./routeHandler/authHandler.js";
 dotenv.config();
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // App Routes
 app.use("/item", itemsHandler);
+app.use("/user", authHandler);
 
 // Error Handler
 app.use(errorHandler);

@@ -39,7 +39,10 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    // Adding Type Roots
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src/**/*"]
 }

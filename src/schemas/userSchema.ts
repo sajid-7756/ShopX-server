@@ -1,4 +1,4 @@
-import type { Document } from "mongoose";
+import { type Document } from "mongoose";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -6,6 +6,7 @@ export interface UserDocument extends Document {
   name: string;
   email: string;
   password: string;
+  comparePassword(password: string): Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema<UserDocument>(
@@ -40,8 +41,6 @@ userSchema.pre("save", async function (next) {
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    // @ts-ignore
-    next();
   } catch (error) {
     // @ts-ignore
     next(error);
@@ -55,4 +54,11 @@ userSchema.methods.comparePassword = async function (
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-export default userSchema;
+// Prevent return password
+userSchema.methods.toJSON = function () {
+  const userObject = this.toObject();
+  delete userObject.password;
+  return userObject;
+};
+
+export const User = mongoose.model<UserDocument>("User", userSchema);

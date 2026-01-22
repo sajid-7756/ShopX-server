@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import express from "express";
 import { User } from "../schemas/userSchema.js";
 import { signToken } from "../utils/auth.js";
+import VerifyJWT from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -34,6 +35,7 @@ router.post(
 
 router.post(
   "/login",
+  VerifyJWT,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body;
@@ -42,7 +44,7 @@ router.post(
 
       if (!user) {
         return res.status(401).json({
-          message: "Invalid credentials",
+          message: "Login failed",
         });
       }
 
@@ -50,7 +52,7 @@ router.post(
 
       if (!match) {
         return res.status(401).json({
-          message: "Invalid credentials",
+          message: "Login failed",
         });
       }
 

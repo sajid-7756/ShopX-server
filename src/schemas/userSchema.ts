@@ -1,4 +1,4 @@
-import { type Document } from "mongoose";
+import { Schema, type Document } from "mongoose";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -9,7 +9,7 @@ export interface UserDocument extends Document {
   comparePassword(password: string): Promise<boolean>;
 }
 
-const userSchema = new mongoose.Schema<UserDocument>(
+const userSchema = new Schema<UserDocument>(
   {
     name: {
       type: String,

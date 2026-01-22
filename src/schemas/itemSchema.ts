@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface ItemDocument extends Document {
   name: string;
@@ -7,9 +7,7 @@ export interface ItemDocument extends Document {
   image: string;
 }
 
-const schema = mongoose.Schema;
-
-const itemSchema = new schema<ItemDocument>(
+const itemSchema = new Schema<ItemDocument>(
   {
     name: {
       type: String,

@@ -64,13 +64,8 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
     const result = await Item.findByIdAndUpdate(id, update, {
       new: true, // Returns updated value
       runValidators: true, // Apply schema definition
+      upsert: true,  // Create new document if no query match is found
     });
-
-    if (!result) {
-      return res.status(404).json({
-        message: "Item not found",
-      });
-    }
 
     res.status(200).json({
       success: true,

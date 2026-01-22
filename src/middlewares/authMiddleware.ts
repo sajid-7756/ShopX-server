@@ -27,10 +27,7 @@ const VerifyJWT = async (req: Request, res: Response, next: NextFunction) => {
     req.user = await User.findById(decoded.id);
     next();
   } catch (error) {
-    console.error(error);
-    res.status(401).json({
-      message: "Invalid token",
-    });
+    next();
   }
 };
 
